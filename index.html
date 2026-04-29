@@ -665,9 +665,9 @@
 
 <section class="section" id="s4" aria-labelledby="s4-title">
   <h1 id="s4-title">4. 미국 ETF 장기 적립식 시뮬레이션</h1>
-  <div class="chart-card"><h3>20년 적립 시 평가금액 — 과거 실현치 (Realized)</h3><p class="caption">로그축. 운용사 공시 과거 CAGR을 그대로 적용한 결과. 4종(SPY·QQQ·SSO·QLD)은 20Y·원금 3.9억 기준. ※ UPRO는 since-inception 16.83Y(원금 3.33억), TQQQ는 16.17Y(원금 3.21억) — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시킴. 절대값 비교보다 배수(×) 또는 연환산 기준으로 해석할 것. 미래 추정 시 변동성 4요인(시작점 편향·금리·변동성·경로 의존성) 감안 필요. 출처<sup class="fn-ref"><a href="#fn3">[3]</a></sup></p><div class="chart-box"><canvas id="chart-etf-20y" aria-label="ETF 20년 적립 결과 막대차트" role="img"></canvas></div></div>
+  <div class="chart-card"><h3>20년 적립 시 평가금액 — 과거 실현치 (Realized)</h3><p class="caption">로그축. 운용사 공시 과거 CAGR을 그대로 적용한 결과. 4종(SPY·QQQ·SSO·QLD)은 20Y·원금 3.9억 기준. ※ UPRO는 상장 이후 전체 16.83Y(원금 3.33억), TQQQ는 16.17Y(원금 3.21억) — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시킴. 절대값 비교보다 배수(×) 또는 연환산 기준으로 해석할 것. 미래 추정 시 변동성 4요인(시작점 편향·금리·변동성·경로 의존성) 감안 필요. 출처<sup class="fn-ref"><a href="#fn3">[3]</a></sup></p><div class="chart-box"><canvas id="chart-etf-20y" aria-label="ETF 20년 적립 결과 막대차트" role="img"></canvas></div></div>
   <h2>TL;DR</h2>
-<p>원금 3.9억을 20년간 QLD(NASDAQ-100 2x)에 적립한 결과(과거 실현치 기준): <strong>최근 20년 평균 CAGR 적용 시 76.0억(19.5×), 최근 10년 평균 CAGR 적용 시 176.8억(45.3×)</strong>  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>. 적용 CAGR 표본 기간이 결과 폭을 크게 흔든다. UPRO/TQQQ는 상장 후 16~17년치 데이터만 존재해 "20Y" 칸에서도 <strong>상장일 이후 since-inception 기간(16.83Y/16.17Y)</strong> 으로 적립 시뮬레이션을 한정한다 — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시켜 시작점 편향을 추가로 증폭하지 않기 위함.</p>
+<p>원금 3.9억을 20년간 QLD(NASDAQ-100 2x)에 적립한 결과(과거 실현치 기준): <strong>최근 20년 평균 CAGR 적용 시 76.0억(19.5×), 최근 10년 평균 CAGR 적용 시 176.8억(45.3×)</strong>  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>. 적용 CAGR 표본 기간이 결과 폭을 크게 흔든다. UPRO/TQQQ는 상장 후 16~17년치 데이터만 존재해 "20Y" 칸에서도 <strong>상장 이후 전체 기간(since-inception, 16.83Y/16.17Y)</strong> 으로 적립 시뮬레이션을 한정한다 — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시켜 시작점 편향을 추가로 증폭하지 않기 위함.</p>
 <h2>시뮬레이션 가정</h2>
 <p>본 시뮬레이션은 <strong>DCA(Dollar-Cost Averaging, 정액 분할매수 — 매월 같은 금액을 자동 매수해 평균 매입단가를 분산하는 방식)</strong> 를 기본 가정으로 한다.</p>
 <ul>
@@ -722,7 +722,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>※ UPRO/TQQQ는 since-inception 데이터만 존재해 적립 기간도 동일하게 한정: <strong>UPRO 16.83Y(202개월·원금 3.33억), TQQQ 16.17Y(194개월·원금 3.21억)</strong>. 다른 종목(20Y, 원금 3.9억)과 절대 금액 직접 비교 불가 — 배수(×) 또는 연환산 수익률 기준으로 비교할 것.</p>
+<p>※ UPRO/TQQQ는 상장 이후 전체 기간 데이터만 존재해 적립 기간도 동일하게 한정: <strong>UPRO 16.83Y(202개월·원금 3.33억), TQQQ 16.17Y(194개월·원금 3.21억)</strong>. 다른 종목(20Y, 원금 3.9억)과 절대 금액 직접 비교 불가 — 배수(×) 또는 연환산 수익률 기준으로 비교할 것.</p>
 <h3>B. 최근 10년 평균 CAGR 적용 (낙관 기준)</h3>
 <div class="table-wrap"><table>
 <thead>
@@ -769,17 +769,17 @@
 <h2>같은 ETF라도 결과가 크게 변동하는 4가지 요인</h2>
 <p>위 표의 수치는 <strong>"이 시기에 실제로 그랬다"는 사후값</strong>이지, <strong>"미래에도 그렇게 될 것"이라는 전망이 아니다</strong>. 같은 ETF라도 측정 시기·환경에 따라 결과 폭이 큰데, 다음 4가지 요인이 작용한다.</p>
 <ol>
-<li><strong>시작점 편향 (강세장 vs 약세장 사이클)</strong> — TQQQ 10Y CAGR 35.29% vs since-inception 16.17Y CAGR 39.31%. 측정 시작점이 코로나 직전이냐 GFC 직후냐만으로도 CAGR이 4%p 차이. 닷컴버블·금융위기급 약세장이 측정 구간에 포함되면 CAGR은 −10~15%p 하향 가능</li>
+<li><strong>시작점 편향 (강세장 vs 약세장 사이클)</strong> — TQQQ 10Y CAGR 35.29% vs 상장 이후 전체 16.17Y CAGR 39.31%. 측정 시작점이 코로나 직전이냐 GFC 직후냐만으로도 CAGR이 4%p 차이. 닷컴버블·금융위기급 약세장이 측정 구간에 포함되면 CAGR은 −10~15%p 하향 가능</li>
 <li><strong>금리 환경</strong> — 레버리지 ETF의 차입비용은 Fed Funds 연동. 2020 0%대 → 2022~2023 5%대로 swap financing 비용이 7%p 이상 변동. 고금리 구간에서는 3x 레버리지 마찰이 −15~20%p 가까이 커짐</li>
 <li><strong>변동성 환경</strong> — 일일 리셋 구조라 횡보·하락 반복 구간에서 손실이 누적. 2022 TQQQ −81% MDD에서 회복까지 13개월 소요  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>. 2x ETF는 동일 구간에서도 손실 폭이 절반 미만이지만 누적 효과는 비슷</li>
 <li><strong>경로 의존성 (path dependency)</strong> — 같은 시작·종료점이라도 drawdown 경로(V자 회복 vs L자 횡보)가 다르면 결과 차이가 큼. 평균 CAGR 한 가지 숫자로는 잡히지 않는 비대칭 손실</li>
 </ol>
-<p>따라서 미래 추정 시에는 위 4요인의 변동을 감안해 <strong>표의 ① 수치를 −10~20%p 보수적으로 해석</strong>하는 편이 안전. 특히 UPRO/TQQQ 31~39% CAGR은 2009년 이후 강세장 since-inception 평균이며, <strong>다음 20년이 같은 거시 환경(저금리·QE(양적완화)·AI 모멘텀)을 재현할지는 알 수 없다</strong>  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>.</p>
+<p>따라서 미래 추정 시에는 위 4요인의 변동을 감안해 <strong>표의 ① 수치를 −10~20%p 보수적으로 해석</strong>하는 편이 안전. 특히 UPRO/TQQQ 31~39% CAGR은 2009년 이후 강세장 상장 이후 전체 기간 평균이며, <strong>다음 20년이 같은 거시 환경(저금리·QE(양적완화)·AI 모멘텀)을 재현할지는 알 수 없다</strong>  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>.</p>
 <h2>핵심 인사이트</h2>
 <ol>
 <li><strong>비레버리지 2종(SPY/QQQ)</strong> — 1x 인덱스가 보수적 표준. 변동성 손실·차입비용 없이 기초지수 그대로의 복리를 받는다. SPY 20Y 14.2억(3.65×), QQQ 20Y 26.0억(6.67×) 수준이 미래 추정의 안전한 기준점</li>
 <li><strong>SSO/QLD (2x)</strong> — DCA + 5년 이상 보유 + 비중 상한 조건에서는 1x 대비 의미 있는 추가 수익이 가능했다(QLD 20Y 76.0억 vs QQQ 20Y 26.0억). 단 2005~2025 미국 빅테크 우위 사이클(저금리·QE(양적완화)·AI 모멘텀)에 의존한 결과 — 같은 거시 환경이 향후 20년 재현될지는 알 수 없음</li>
-<li><strong>UPRO/TQQQ (3x)</strong> — since-inception 강세장 편향이 가장 큰 카테고리. 차입비용 −13%p + 변동성 손실 누적이 강해 변동성·고금리 충격에 가장 취약. 표 수치(특히 374억·177억 같은 큰 값)는 가정 의존도가 본질적으로 높음 — 비중 상한·기간 분산 룰 없이 그대로 받지 말 것</li>
+<li><strong>UPRO/TQQQ (3x)</strong> — 상장 이후 전체 기간이 강세장에 집중된 편향이 가장 큰 카테고리. 차입비용 −13%p + 변동성 손실 누적이 강해 변동성·고금리 충격에 가장 취약. 표 수치(특히 374억·177억 같은 큰 값)는 가정 의존도가 본질적으로 높음 — 비중 상한·기간 분산 룰 없이 그대로 받지 말 것</li>
 </ol>
 <h2>약세장 적립 전략 (Valley DCA) — 보조 옵션</h2>
 <p>위 시뮬레이션은 정액 DCA 가정이다. 여기에 더해 <strong>약세장 구간에서 레버리지 ETF(SSO·QLD·UPRO·TQQQ) 비중을 일시적으로 늘리는</strong> 전략 — 통칭 Valley DCA(약세장 가중 분할매수) — 도 일부 투자자가 사용한다. 결론부터: <strong>주력 적립의 대안이 아니라 보조 옵션</strong>이며, 사전 룰화 없이는 권장하지 않는다.</p>
