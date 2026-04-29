@@ -668,6 +668,47 @@
   <div class="chart-card"><h3>20년 적립 시 평가금액 — 과거 실현치 (Realized)</h3><p class="caption">로그축. 운용사 공시 과거 CAGR을 그대로 적용한 결과. 4종(SPY·QQQ·SSO·QLD)은 20Y·원금 3.9억 기준. ※ UPRO는 상장 이후 전체 16.83Y(원금 3.33억), TQQQ는 16.17Y(원금 3.21억) — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시킴. 절대값 비교보다 배수(×) 또는 연환산 기준으로 해석할 것. 미래 추정 시 변동성 4요인(시작점 편향·금리·변동성·경로 의존성) 감안 필요. 출처<sup class="fn-ref"><a href="#fn3">[3]</a></sup></p><div class="chart-box"><canvas id="chart-etf-20y" aria-label="ETF 20년 적립 결과 막대차트" role="img"></canvas></div></div>
   <h2>TL;DR</h2>
 <p>원금 3.9억을 20년간 QLD(NASDAQ-100 2x)에 적립한 결과(과거 실현치 기준): <strong>최근 20년 평균 CAGR 적용 시 76.0억(19.5×), 최근 10년 평균 CAGR 적용 시 176.8억(45.3×)</strong>  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>. 적용 CAGR 표본 기간이 결과 폭을 크게 흔든다. UPRO/TQQQ는 상장 후 16~17년치 데이터만 존재해 "20Y" 칸에서도 <strong>상장 이후 전체 기간(since-inception, 16.83Y/16.17Y)</strong> 으로 적립 시뮬레이션을 한정한다 — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시켜 시작점 편향을 추가로 증폭하지 않기 위함.</p>
+<h2>추종 지수 — S&amp;P 500 vs NASDAQ-100 (vs 코스피200)</h2>
+<p>본 장에서 다루는 ETF는 모두 미국 2대 대표 지수를 추종한다. 한국 직원 독자에게 익숙한 코스피200과 비교하면 다음과 같다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>지수</th>
+<th>종목 수</th>
+<th>섹터 특징</th>
+<th>대표 종목</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S&amp;P 500</strong> (미국)</td>
+<td>500</td>
+<td>전 섹터 분산 — 미국 상장 시총 상위 대형주</td>
+<td>Apple, Microsoft, Nvidia, Berkshire, JPMorgan, ExxonMobil 등</td>
+</tr>
+<tr>
+<td><strong>NASDAQ-100</strong> (미국)</td>
+<td>100</td>
+<td>나스닥 비금융 대형주만, <strong>IT·통신·소비재 편중</strong></td>
+<td>Apple, Microsoft, Nvidia, Alphabet, Amazon, Meta, Tesla, Costco 등</td>
+</tr>
+<tr>
+<td><strong>KOSPI 200</strong> (한국)</td>
+<td>200</td>
+<td>유가증권시장 시총 상위, <strong>삼성전자 단일 종목 비중이 큼</strong></td>
+<td>삼성전자, SK하이닉스, LG에너지솔루션, 현대차, NAVER 등</td>
+</tr>
+</tbody>
+</table></div>
+<p>본 장 ETF 매핑:</p>
+<ul>
+<li><strong>S&amp;P 500 추종</strong>: SPY (1x), VOO (1x), SSO (2x), UPRO (3x)</li>
+<li><strong>NASDAQ-100 추종</strong>: QQQ (1x), QQQM (1x), QLD (2x), TQQQ (3x)</li>
+</ul>
+<p>배수(1x/2x/3x)는 일일 수익률 기준 레버리지. 같은 지수를 추종해도 수수료·환금성·레버리지 배수에 따라 8개 ETF로 나뉜다.</p>
+<blockquote>
+<p><strong>구조적 차이</strong>: 미국 대형주 인덱스는 글로벌 매출 비중이 높은 다국적 기업이 다수라 같은 IT 편중이라도 코스피200보다 사이클·매출원이 더 분산되어 있다. NASDAQ-100은 빅테크 집중도가 매우 높지만, 그 빅테크 자체가 글로벌 매출 기반이라 한국 IT 사이클(스마트폰·메모리 위주)과는 노출 구조가 다름.</p>
+</blockquote>
 <h2>시뮬레이션 가정</h2>
 <p>본 시뮬레이션은 <strong>DCA(Dollar-Cost Averaging, 정액 분할매수 — 매월 같은 금액을 자동 매수해 평균 매입단가를 분산하는 방식)</strong> 를 기본 가정으로 한다.</p>
 <ul>
