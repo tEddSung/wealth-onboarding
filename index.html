@@ -1264,12 +1264,16 @@ const CHART_PALETTE = {
   gray:    '#9CA3AF',
 };
 
-/* 자산군별 고정 색 매핑 — 강심장형/약심장형 차트 간 일관성 */
+/* 자산군별 고정 색 매핑 — Bloomberg/Morningstar 톤 (딥 네이비 / 오렌지 / 쿨 그레이) */
 const PORTFOLIO_COLOR = {
-  '글로벌 주식형 ETF':     '#1E3A8A',  /* primary */
-  '국내상장 미국지수 ETF': '#10B981',  /* accent  */
-  '단기채':                '#F59E0B',  /* warn    */
-  '글로벌 채권 ETF':       '#7C3AED',  /* purple  */
+  /* 강심장형 (직투) */
+  '미국 나스닥100 ETF':    '#0B2545',  /* deep navy  — 주력 주식 */
+  '미국 나스닥100 ETF x2': '#E87722',  /* BBG orange — 레버리지 */
+  '빅테크 개별주':         '#6B7280',  /* cool gray  — 집중 자산 */
+  /* 약심장형 (직투) */
+  '미국 S&P500 ETF':       '#0B2545',  /* deep navy  — 주력 주식 */
+  '미국 배당다우존스 ETF': '#E87722',  /* BBG orange — 인컴 */
+  '미국 장기채 ETF':       '#6B7280',  /* cool gray  — 방어 */
 };
 
 /* IRP 환급액 차트 — 연봉 구간별 */
