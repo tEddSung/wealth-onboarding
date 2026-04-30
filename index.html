@@ -1435,6 +1435,18 @@ function grayGradient(n, fromL = 10, toL = 68) {
   return out;
 }
 
+/* ETF 레버리지 배수 → 색 티어 (1× = SPY 톤, 2× = QLD 톤, 3× = TQQQ 톤) */
+const ETF_LEVERAGE = {
+  'SPY': 1, 'QQQ': 1,
+  'SSO': 2, 'QLD': 2,
+  'UPRO': 3, 'TQQQ': 3,
+};
+const ETF_TIER_L = { 1: 10, 2: 44.8, 3: 68 };
+const etfTierColor = (ticker) => {
+  const lev = ETF_LEVERAGE[ticker] || 1;
+  return `hsl(0, 0%, ${ETF_TIER_L[lev]}%)`;
+};
+
 function renderIrpRefundChart() {
   const ctx = document.getElementById('chart-irp-refund');
   if (!ctx) return;
@@ -1497,7 +1509,7 @@ function renderEtf20YChart() {
         {
           label: '과거 실현치 (Realized)',
           data: DATA_ETF_20Y.map(d => d.total_krw),
-          backgroundColor: grayGradient(DATA_ETF_20Y.length),
+          backgroundColor: DATA_ETF_20Y.map(d => etfTierColor(d.ticker)),
           borderWidth: 0,
           maxBarThickness: 48,
         }
