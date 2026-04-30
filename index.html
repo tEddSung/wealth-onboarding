@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026Q2 사내 재테크 가이드 (투자편)</title>
 <meta name="description" content="2026Q2 사내 재테크 가이드 (투자편): IRP·ISA·ETF 시뮬레이션·행동경제학·포트폴리오·체크리스트">
+<meta name="author" content="20년차 자산배분 애널리스트 + CFP">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="2026Q2 사내 재테크 가이드 (투자편)">
+<meta property="og:description" content="IRP·ISA·ETF 시뮬레이션·행동경제학·포트폴리오 — 사내 임직원 절세·자동화·복리 설계 가이드">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2026Q2 사내 재테크 가이드 (투자편)">
+<meta name="twitter:description" content="절세·자동화·복리로 5년·10년·20년을 설계한다.">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,11 +96,27 @@
   }
   .toc ol {
     margin: 0;
-    padding-left: 28px;
+    padding: 0;
+    list-style: none;
+    counter-reset: toc-counter -1;
   }
   .toc li {
-    margin: 5px 0;
+    margin: 6px 0;
     font-size: 0.95rem;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    counter-increment: toc-counter;
+  }
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+    min-width: 22px;
+    letter-spacing: 0;
   }
   .toc a {
     color: var(--ink);
@@ -289,6 +314,14 @@
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: transparent; }
   td code, th code { background: transparent; padding: 0; }
+  /* Key row — 핵심 의사결정 분기 행 강조 (markdown에서 마지막 셀에 "←" 포함 시 자동 적용) */
+  tr.tr-key td {
+    background: rgba(26, 26, 26, 0.045);
+    font-weight: 600;
+  }
+  tr.tr-key td:first-child {
+    border-left: 2px solid var(--ink);
+  }
 
   /* Charts (minor refresh — full polish in step 3) */
   .chart-card {
@@ -403,6 +436,48 @@
     .wrap { padding: 16px 12px 64px; }
     .hero h1 { font-size: 1.5rem; }
   }
+
+  /* Print — 출력 시 잉크 절감, 시그니처 흐리기, 페이지 break 보호 */
+  @media print {
+    body {
+      background: #fff;
+      color: #000;
+      font-size: 10.5pt;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 100%; padding: 0; }
+    .hero { border-bottom: 1px solid #000; padding: 12pt 0; margin-bottom: 16pt; page-break-after: avoid; }
+    .hero h1 { color: #000; }
+    .toc { border-color: #000; }
+    .toc a { color: #000; }
+    section.section { page-break-inside: auto; margin-bottom: 24pt; }
+    section.section h1 { page-break-after: avoid; color: #000; border-color: #000; }
+    section.section h2, section.section h3 { page-break-after: avoid; color: #000; }
+    section.section::before {
+      -webkit-text-stroke-color: rgba(0, 0, 0, 0.18);
+    }
+    /* TL;DR 인버티드 블록은 인쇄 시 잉크 과다 → 일반 박스로 반전 */
+    section.section h2:first-of-type:has(+ p) + p {
+      background: #fff !important;
+      color: #000 !important;
+      border: 1px solid #000 !important;
+      padding: 12pt 14pt !important;
+    }
+    section.section h2:first-of-type:has(+ p) + p strong { color: #000 !important; }
+    section.section h2:first-of-type:has(+ p) + p sup.fn-ref a { color: #000 !important; }
+    .action-box { page-break-inside: avoid; border-color: #000; }
+    .action-box p, .action-box strong { color: #000; }
+    blockquote { border-left-color: #000; color: #000; }
+    table { border-color: #000; }
+    th { border-bottom-color: #000; color: #000; }
+    td { color: #000; border-bottom-color: rgba(0,0,0,0.2); }
+    tr.tr-key td { background: rgba(0, 0, 0, 0.06); }
+    .chart-card { page-break-inside: avoid; border-color: #000; }
+    sup.fn-ref a { color: #000 !important; }
+    footer.site-footer { color: #000; border-top-color: #000; page-break-before: auto; }
+    footer a { color: #000 !important; }
+    /* 차트 캔버스는 인쇄 시 깨지므로 캡션·제목 우선 보존 */
+  }
 </style>
 </head>
 <body>
@@ -415,10 +490,9 @@
   <nav class="toc" aria-label="섹션 목차">
     <h2>목차</h2>
     <ol>
-      <li value="0"><a href="#s0">적립을 지키는 3가지 — 시작 전 점검</a></li>
+      <li><a href="#s0">적립을 지키는 3가지 — 시작 전 점검</a></li>
       <li><a href="#s1">왜 지금 재테크인가</a></li>
-      <li><a href="#s2">IRP &amp; 연금저축펀드 — 즉시 환급되는 절세</a></li>
-      <li><a href="#s3">ISA — 비과세·분리과세 활용</a></li>
+      <li><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
       <li><a href="#s4">미국 ETF 장기 적립식 시뮬레이션</a></li>
       <li><a href="#s5">행동경제학 — 알면서도 못 하는 이유</a></li>
       <li><a href="#s6">포트폴리오 제안 — 강심장형 / 약심장형</a></li>
@@ -577,14 +651,18 @@
 <h2>3. 지금 시작이 가장 빠르다</h2>
 <p>복리는 후반부로 갈수록 가속한다. 1년 늦게 시작하면 가장 가파른 구간을 그만큼 놓치는 셈이다. <strong>"여유가 생기면 시작"이 아니라 "지금 적게라도 시작"</strong>이 답이다.</p>
 <p>다음 장에서는 시작 즉시 효과가 나오는 IRP(개인형 퇴직연금)·연금저축펀드를 다룬다. 연봉 5,000만원 직장인이 한도(900만원)까지 채우면 약 148만원이 다음 해 2월 환급된다.</p>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>본인 월 적립 가능 금액과 적립 시계(10·20년)를 정해두고 다음 장으로 진입. 1년 늦게 시작하면 후반부 복리 가속 구간을 그만큼 놓치므로, 금액보다 시작 시점이 우선이다.</p>
+</div>
 </section>
 
 <section class="section" id="s2" data-num="02" aria-labelledby="s2-title">
-  <h1 id="s2-title">IRP & 연금저축펀드 — 즉시 환급되는 절세</h1>
+  <h1 id="s2-title">세제 우대 계좌 — IRP·연금저축펀드 + ISA</h1>
   <div class="chart-card"><h3>연봉 구간별 IRP+연금저축 환급액 (연 900만원 납입 가정)</h3><p class="caption">5,500만원 이하 = 16.5% 공제율 (148.5만원 환급) / 초과 = 13.2% (118.8만원 환급). 경계에서 환급액 약 30만원 차이. 출처<sup class="fn-ref"><a href="#fn1">[1]</a></sup></p><div class="chart-box"><canvas id="chart-irp-refund" aria-label="연봉별 IRP 환급액 막대차트" role="img"></canvas></div></div>
   <h2>TL;DR</h2>
-<p>연 900만원을 IRP(개인형 퇴직연금)와 연금저축펀드에 합산 납입하면, 총급여 5,500만원 이하 직장인은 <strong>148.5만원</strong>, 초과 직장인은 <strong>118.8만원</strong>을 다음 해 2월 연말정산에서 환급받는다  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>. 시장 수익과 무관하게 확정되는 즉시 절세 효과로, 한국 직장인이 활용 가능한 절세 수단 중 1순위에 둘 만하다. <strong>출구 단계에서도 저율 분리과세(3.3~5.5%) + 건강보험료 미반영</strong>이라는 이중 혜택이 따라붙어, 단순 환급 효과 이상의 누적 절세가 발생한다.</p>
-<h2>0. 왜 만들어졌나 — 정책 배경</h2>
+<p>세제 우대 계좌가 절세 1순위. <strong>IRP·연금저축펀드</strong> 합산 연 900만원 납입 시 다음 해 2월에 <strong>148.5만원</strong>(총급여 5,500만 이하) 또는 <strong>118.8만원</strong>(초과)이 환급되며  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>, 인출 단계에서도 5.5~3.3% 저율 분리과세 + 건강보험료 미반영의 이중 혜택이 따라붙는다. <strong>ISA</strong>는 연 2,000만(5년 누적 1억) 한도로 순이익 200만 비과세 + 초과분 9.9% 분리과세. 2026-01부터 ISA 만기자금을 IRP로 이체하면 <strong>연 300만원 한도 추가 공제</strong>까지 결합된다  <sup class="fn-ref"><a href="#fn2">[2]</a></sup>.</p>
+<h2>1. 정책 배경 — 사적 연금이 필요한 이유</h2>
 <p>한국 국민연금 소득대체율은 2024년 기준 <strong>42%</strong>. 2007년 2차 개혁 원안은 2028년 40% 도달이었으나, 2024-09 정부 개혁안에서 42% 유지 방향이 제시됐다. 다만 2026-04 현재 입법 진행은 미확정 상태다. 어느 쪽 시나리오든 OECD 평균 58%·권고 적정선 65~75%에는 미달한다  <sup class="fn-ref"><a href="#fn9">[9]</a></sup>. 정부가 노후를 끝까지 책임질 수 없으니 <strong>납입·운용·수령 전 단계에 세제 혜택을 부여해 개인이 사적 연금을 통해 노후를 준비하도록 유도</strong>하는 것이 IRP·연금저축의 정책 의도다. 미국·일본·영국·독일 모두 동일한 철학으로 설계된 사적연금을 운용한다.</p>
 <div class="table-wrap"><table>
 <thead>
@@ -630,9 +708,9 @@
 </table></div>
 <p><sup class="fn-ref"><a href="#fn9">[9]</a></sup></p>
 <p>공통 메시지: <strong>공적연금만으로는 부족</strong>하다는 인식이 선진국 보편이며, 한국도 같은 맥락이다.</p>
-<h2>1. IRP·연금저축펀드란</h2>
+<h2>2. IRP·연금저축펀드란</h2>
 <p><strong>IRP(개인형 퇴직연금)</strong>는 본인이 직접 가입하는 퇴직연금 계좌, <strong>연금저축펀드</strong>는 펀드·ETF에 투자하는 사적 연금이다. 두 계좌를 합산해 세액공제 한도가 잡힌다. IRP는 안전자산 30% 의무 편입(위험자산 70%까지), 연금저축펀드는 위험자산 비중 제한 없음 — 함께 쓰면 자산군 분담이 자연스럽다.</p>
-<h2>2. 합산 한도와 공제율</h2>
+<h2>3. 한도·공제율·환급액</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -660,7 +738,7 @@
 </tbody>
 </table></div>
 <p>출처:  <sup class="fn-ref"><a href="#fn1">[1]</a></sup> (국세청 공식 안내). 합산 한도 900만원·공제율 15·12% 체계는 2026년에도 변동 없다.</p>
-<h2>3. 연봉별 환급액</h2>
+<h3>연봉별 환급액</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -675,10 +753,10 @@
 <td>16.5%</td>
 <td><strong>1,485,000원</strong></td>
 </tr>
-<tr>
+<tr class="tr-key">
 <td>5,000만원</td>
 <td>16.5%</td>
-<td><strong>1,485,000원</strong></td>
+<td><strong>1,485,000원</strong> ← 5,500만 경계 직전</td>
 </tr>
 <tr>
 <td>7,000만원</td>
@@ -754,7 +832,7 @@
 <td>15%</td>
 <td>16.5%</td>
 </tr>
-<tr>
+<tr class="tr-key">
 <td><strong>5,000만 ~ 8,800만원</strong></td>
 <td><strong>24%</strong></td>
 <td><strong>26.4%</strong> ← 분리과세 분기점</td>
@@ -811,9 +889,9 @@
 <td><strong>공적연금</strong> (국민연금 등)</td>
 <td><strong>50%</strong></td>
 </tr>
-<tr>
+<tr class="tr-key">
 <td><strong>사적연금</strong> (IRP·연금저축)</td>
-<td><strong>0% (미반영)</strong></td>
+<td><strong>0% (미반영)</strong> ← 핵심 혜택</td>
 </tr>
 </tbody>
 </table></div>
@@ -825,18 +903,9 @@
 <li>사적연금 건보료 부과 도입 가능성, 공적연금 100% 반영안 등이 정책 논의 단계에서 정기적으로 등장. <strong>2026-04 현재 시행되지 않음</strong>.</li>
 <li>현재 구조를 영구 보장으로 가정하지 말 것. 다만 일반적으로 <strong>기존 가입자 소급 적용은 제한적</strong>.</li>
 </ul>
-<h2>6. 2026년 변경 포인트 — ISA 만기자금 추가공제</h2>
-<p>2026-01-01부터 <strong>ISA(개인종합자산관리계좌) 만기자금을 60일 이내 IRP/연금저축으로 이체</strong>하면 이체액의 10%(연 300만원 한도)를 추가 세액공제받을 수 있다  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>. 기존 900만원 한도와 별도 적용되므로 사실상 1,200만원까지 한도 확장이 가능하다. ISA 자체 내용은 다음 장에서 다룬다.</p>
-<h2>7. 주의사항</h2>
-<p>중도해지 시 세액공제받은 원금·운용수익에 <strong>16.5% 기타소득세</strong>가 부과된다  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>. 페널티 없는 인출은 <strong>만 55세 이상 + 가입 후 5년 이상</strong> 경과 시 연금수령 형태로만 가능하므로(5.5~3.3% 저율 분리과세), 30·40대 가입자 기준 사실상 <strong>20~25년 이상 묶어둘 수 있는 자금</strong>만 IRP·연금저축에 넣을 것.</p>
-</section>
-
-<section class="section" id="s3" data-num="03" aria-labelledby="s3-title">
-  <h1 id="s3-title">ISA — 비과세·분리과세 활용</h1>
-  
-  <h2>TL;DR</h2>
-<p><strong>현행 ISA는 일반형 200만원까지 비과세, 초과분 9.9% 분리과세.</strong> 한도 확대안(통칭 "슈퍼 ISA")은 입법 진행 중·시행 시점 미확정이므로, 현행 한도 기준으로 우선 가입해 3년 의무기간 시계를 돌려두는 편이 안전하다.</p>
-<h2>현행 ISA — 시행 중</h2>
+<h2>6. ISA — 비과세·분리과세 통산</h2>
+<p>ISA(개인종합자산관리계좌)는 한 계좌 안에서 매매차익·배당·이자를 <strong>손익통산</strong>한 뒤 <strong>순이익에 대해 비과세 또는 9.9% 저율 분리과세</strong>가 적용되는 절세 통로다. IRP·연금저축이 노후 묶음이라면, ISA는 <strong>3년 의무기간 후 자유로운 중기 자산형성</strong> 자리.</p>
+<h3>현행 한도와 세율</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -858,13 +927,13 @@
 </tr>
 <tr>
 <td>비과세 한도</td>
-<td>순이익 200만원</td>
-<td>순이익 400만원</td>
+<td>순이익 <strong>200만원</strong></td>
+<td>순이익 <strong>400만원</strong></td>
 </tr>
 <tr>
-<td>초과분</td>
-<td>9.9% 분리과세</td>
-<td>9.9% 분리과세</td>
+<td>초과분 세율</td>
+<td><strong>9.9%</strong> 분리과세</td>
+<td><strong>9.9%</strong> 분리과세</td>
 </tr>
 <tr>
 <td>의무기간</td>
@@ -873,17 +942,51 @@
 </tr>
 </tbody>
 </table></div>
-<p>손익통산은 계좌 내 매매차익·배당·이자를 합산한 순이익에 적용된다. 단, 직전 3년 중 금융소득종합과세 대상자(연 2,000만원 초과)는 <strong>현행 ISA 가입 불가</strong>.  <sup class="fn-ref"><a href="#fn2">[2]</a></sup></p>
-<blockquote>
-<p>⚠️ <strong>한도 확대안(통칭 "슈퍼 ISA")</strong> — 입법 진행 중·시행 시점 미확정. 2024년 안은 무산, 2025년 안은 처리 결과 출처 간 상충, 2026년 신유형(국민성장·청년형 ISA)은 2026-07 세법개정안에서 구체화 예정. 한도 확대를 전제로 자금 계획을 짜지 말 것. 본 자료는 7월 발표 후 갱신 예정.  <sup class="fn-ref"><a href="#fn2">[2]</a></sup></p>
-</blockquote>
-<h2>ISA 만기 → IRP 이체 추가공제</h2>
-<p>만기 자금을 60일 내 IRP·연금저축으로 이체하면 <strong>이체액의 10%(연 300만원 한도)</strong> 추가 세액공제가 붙는다(2026-01-01 시행). IRP 합산 한도(연 900만원)와 별도이므로, 절세 통로를 한 번 더 활용할 수 있는 자리다.  <sup class="fn-ref"><a href="#fn1">[1]</a></sup></p>
-<h2>무엇을 담을 것인가</h2>
-<p>ISA 안에서는 국내 상장 미국지수 ETF(S&amp;P500·NASDAQ-100 추종 등)의 <strong>분배금과 해외지수 매매차익</strong>이 비과세·저율과세 대상이 된다. 일반계좌(15.4%) 대비 5.5%p 절세효과가 가장 또렷한 자리이므로, ISA 한도는 해외지수 ETF·배당·채권 쪽에 우선 배정하는 것이 정석이다. 국내주식 직접매매는 ISA 밖에서도 비과세라 굳이 ISA 한도를 쓸 필요가 없다.  <sup class="fn-ref"><a href="#fn2">[2]</a></sup></p>
+<p><sup class="fn-ref"><a href="#fn2">[2]</a></sup></p>
+<p>직전 3년 중 금융소득종합과세 대상자(연 2,000만원 초과)는 <strong>현행 ISA 가입 불가</strong>.</p>
+<h3>ISA에 무엇을 담을 것인가</h3>
+<p>ISA 안에서는 국내 상장 미국지수 ETF(S&amp;P500·NASDAQ-100 추종 등)의 <strong>분배금과 해외지수 매매차익</strong>이 비과세·저율과세 대상이 된다. 일반계좌(15.4%) 대비 <strong>5.5%p 절세효과</strong>가 가장 또렷한 자리이므로, ISA 한도는 <strong>해외지수 ETF·배당·채권 쪽에 우선 배정</strong>하는 것이 정석이다. 국내주식 직접매매는 ISA 밖에서도 비과세라 굳이 ISA 한도를 쓸 필요가 없다  <sup class="fn-ref"><a href="#fn2">[2]</a></sup>.</p>
+<h2>7. IRP ↔ ISA 연계 — 만기 이체 추가공제</h2>
+<p>2026-01-01부터 <strong>ISA 만기자금을 60일 이내 IRP/연금저축으로 이체</strong>하면 이체액의 10%(<strong>연 300만원 한도</strong>)를 추가 세액공제받을 수 있다  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>. 기존 900만원 한도와 별도 적용되므로 사실상 <strong>연 1,200만원까지 한도 확장</strong>이 가능하다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>절세 통로</th>
+<th>한도</th>
+<th>환급/공제 효과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IRP + 연금저축 합산</td>
+<td>900만</td>
+<td>16.5% / 13.2% 환급</td>
+</tr>
+<tr class="tr-key">
+<td>ISA 만기 → IRP 이체 추가</td>
+<td>300만</td>
+<td>동일 공제율로 추가 환급 ← 2026 신설</td>
+</tr>
+<tr>
+<td><strong>합계 (이체 적용 시)</strong></td>
+<td><strong>1,200만</strong></td>
+<td><strong>최대 198만원 환급</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>ISA 만기는 가입 후 3년 경과 시점부터 가능하므로, 30대 가입자는 <strong>34~37세 시점에 첫 이체 의사결정</strong>이 잡힌다.</p>
+<h2>8. 주의사항</h2>
+<h3>IRP·연금저축 — 중도해지 페널티</h3>
+<p>중도해지 시 세액공제받은 원금·운용수익에 <strong>16.5% 기타소득세</strong>가 부과된다  <sup class="fn-ref"><a href="#fn1">[1]</a></sup>. 페널티 없는 인출은 <strong>만 55세 이상 + 가입 후 5년 이상</strong> 경과 시 연금수령 형태로만 가능하므로(5.5~3.3% 저율 분리과세), 30·40대 가입자 기준 사실상 <strong>20~25년 이상 묶어둘 수 있는 자금</strong>만 IRP·연금저축에 넣을 것.</p>
+<h3>ISA — 의무기간 3년</h3>
+<p>3년 의무기간 내 해지 시 이미 받은 비과세·분리과세 혜택이 <strong>추징</strong>된다. 다만 IRP·연금저축의 16.5% 페널티만큼 가혹하지는 않음. 의무기간 후에는 자유 인출 가능.</p>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>IRP·연금저축펀드 합산 연 900만원 한도까지 자동이체 설정 + ISA 가입(미국지수 ETF 우선 배정). 다음 해 2월 환급액(약 148.5만원)은 추가 적립 또는 고금리 부채 상환에 재투입.</p>
+</div>
 </section>
 
-<section class="section" id="s4" data-num="04" aria-labelledby="s4-title">
+<section class="section" id="s4" data-num="03" aria-labelledby="s4-title">
   <h1 id="s4-title">미국 ETF 장기 적립식 시뮬레이션</h1>
   <div class="chart-card"><h3>20년 적립 시 평가금액 — 과거 실현치 (Realized)</h3><p class="caption">로그축. 운용사 공시 과거 CAGR을 그대로 적용한 결과. 4종(SPY·QQQ·SSO·QLD)은 20Y·원금 3.9억 기준. ※ UPRO는 상장 이후 전체 16.83Y(원금 3.33억), TQQQ는 16.17Y(원금 3.21억) — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시킴. 절대값 비교보다 배수(×) 또는 연환산 기준으로 해석할 것. 미래 추정 시 변동성 4요인(시작점 편향·금리·변동성·경로 의존성) 감안 필요. 출처<sup class="fn-ref"><a href="#fn3">[3]</a></sup></p><div class="chart-box"><canvas id="chart-etf-20y" aria-label="ETF 20년 적립 결과 막대차트" role="img"></canvas></div></div>
   <h2>TL;DR</h2>
@@ -1093,9 +1196,13 @@
 <p>투자 기간이 길수록 과거 표본의 대표성을 점검해야 한다. UPRO 31%·TQQQ 39% CAGR은 2009년 이후 16~17년치 데이터로  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>, 이 기간에는 <strong>2008년 금융위기 회복, 2018년 Q4 −20% 조정, 2020년 코로나 폭락, 2022년 금리인상기 −25~30% 조정</strong> 같은 약세장도 여러 번 포함되어 있다. 즉 단순한 일방향 상승장만은 아니다.</p>
 <p>다만 같은 기간이 미국 대형 성장주의 역사적 강세 사이클(저금리·QE(양적완화)·AI 모멘텀)에 크게 의존했다는 점도 사실이며, 향후 20년이 같은 거시 환경을 재현할지는 알 수 없다. 변동성·횡보 구간이 길어지거나 고금리가 장기화되면 변동성 손실과 차입비용이 누적되어 표의 수치보다 실제 결과는 훨씬 작아질 수 있다  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>.</p>
 <p>따라서 177.1억(TQQQ 16.17Y, 원금 3.21억)은 미래에 그대로 달성될 결과라기보다 시뮬레이션 가정에 크게 좌우되는 참고치로 보는 편이 안전하다. SPY 14.2억(3.65×, 원금 3.9억·20Y)이 보수적 표준이며, 1x 인덱스 + 일부 2x 비중 + 사전 룰화된 약세장 가중 적립의 조합이 현실적인 활용 방향이다.</p>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>SPY 또는 QQQ 단일 적립으로 시작. 레버리지(SSO/QLD 이상)는 변동성 손실·금리·시작점 편향을 충분히 이해한 후 비중을 결정하며, 시작하더라도 전체 적립의 일부(예: 10~20%)로 한정.</p>
+</div>
 </section>
 
-<section class="section" id="s5" data-num="05" aria-labelledby="s5-title">
+<section class="section" id="s5" data-num="04" aria-labelledby="s5-title">
   <h1 id="s5-title">행동경제학 — 알면서도 못 하는 이유</h1>
   
   <h2>TL;DR</h2>
@@ -1248,9 +1355,13 @@
 </blockquote>
 <h2>다음 섹션 연결</h2>
 <p>다음 장의 포트폴리오는 <strong>자동화로 굴러가는 구조</strong>로 설계한다. 자산군 수가 많고 매매 타이밍 판단이 필요한 구조는 현재편향·결정 비용 앞에서 무너진다. 강심장형/약심장형 모두 "분기 점검 + 연 1회 리밸런싱"으로 운영되는 단순성을 우선한다.</p>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>월급일 직후 자동이체 한 줄로 의지를 시스템에 위임. 폭락 −30~50% 구간에 매도하지 않을 본인의 사전 룰을 한 줄로 적어두기 (예: "MDD −50% 이내는 적립 지속, 매도 금지").</p>
+</div>
 </section>
 
-<section class="section" id="s6" data-num="06" aria-labelledby="s6-title">
+<section class="section" id="s6" data-num="05" aria-labelledby="s6-title">
   <h1 id="s6-title">포트폴리오 제안 — 강심장형 / 약심장형</h1>
   <div class="chart-card"><h3>모델 포트폴리오 자산군 비중 (카테고리 예시 / 직투 계좌 기준)</h3><p class="caption">강심장형 vs 약심장형. 특정 종목 권유 아님. 출처<sup class="fn-ref"><a href="#fn5">[5]</a></sup></p><div class="chart-row two"><div class="chart-box"><canvas id="chart-portfolio-strong" aria-label="강심장형 포트폴리오 도넛차트" role="img"></canvas></div><div class="chart-box"><canvas id="chart-portfolio-soft" aria-label="약심장형 포트폴리오 도넛차트" role="img"></canvas></div></div></div>
   <h2>TL;DR</h2>
@@ -1350,16 +1461,20 @@
 </tr>
 </tbody>
 </table></div>
-<p>각 트랙의 상품 선택은 위 모델 포트폴리오의 <strong>카테고리 예시</strong>를 참고하되, 비중은 본인의 위험감수도·보유기간·생활비 분리 여부에 따라 조정한다. 단일 종목·레버리지 ETF는 비중을 정할 때 두 가지 경고를 먼저 적용한다 — 4장의 변동성 손실, 5장의 폭락 견디는 기질.</p>
+<p>각 트랙의 상품 선택은 위 모델 포트폴리오의 <strong>카테고리 예시</strong>를 참고하되, 비중은 본인의 위험감수도·보유기간·생활비 분리 여부에 따라 조정한다. 단일 종목·레버리지 ETF는 비중을 정할 때 두 가지 경고를 먼저 적용한다 — 3장의 변동성 손실, 4장의 폭락 견디는 기질.</p>
 <p>두 트랙 모두 운영 규칙은 동일하다 — <strong>자동이체 → 분기 점검 → 연 1회 리밸런싱</strong>. <strong>5년 미만은 평가하지 말 것</strong> — 단기 변동은 잡음이다.</p>
 <hr />
 <blockquote>
 <p><strong>유의사항</strong>
 본 자산배분은 카테고리 예시이며, 특정 ETF·종목·티커 매수를 권유하는 것이 아니다. 배당 ETF·금 ETF 등은 카테고리명이며, 실제 가입 시에는 세후 비용·추적오차·운용규모를 본인이 직접 비교해야 한다. 비트코인은 변동성·법적 지위·세제가 핵심 자산군과 다르므로, 강심장형이라도 한도 5%를 넘기지 않는 <strong>참고 자산</strong>으로 분리 운용을 권장한다.</p>
 </blockquote>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>본인 기질(강심장형/약심장형)을 점검 후 트랙 1개 선택. 자산군 비중을 정해 자동이체 설정 → 분기 점검 → 연 1회 리밸런싱. 5년 미만 단기 평가는 잡음이므로 무시.</p>
+</div>
 </section>
 
-<section class="section" id="s7" data-num="07" aria-labelledby="s7-title">
+<section class="section" id="s7" data-num="06" aria-labelledby="s7-title">
   <h1 id="s7-title">결론 · 행동 체크리스트 · 면책</h1>
   
   <h2>한 줄 결론</h2>
