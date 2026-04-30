@@ -1423,6 +1423,18 @@ const COMMON_TOOLTIP = {
 };
 const AXIS_TITLE_FONT = { size: 11, weight: '600' };
 
+/* 검정에서 점차 옅어지는 그레이 그라디언트 — 길이에 따라 자동 분포 */
+function grayGradient(n, fromL = 10, toL = 68) {
+  if (n <= 1) return [`hsl(0, 0%, ${fromL}%)`];
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1);
+    const L = fromL + (toL - fromL) * t;
+    out.push(`hsl(0, 0%, ${L.toFixed(1)}%)`);
+  }
+  return out;
+}
+
 function renderIrpRefundChart() {
   const ctx = document.getElementById('chart-irp-refund');
   if (!ctx) return;
@@ -1485,7 +1497,7 @@ function renderEtf20YChart() {
         {
           label: '과거 실현치 (Realized)',
           data: DATA_ETF_20Y.map(d => d.total_krw),
-          backgroundColor: CHART_PALETTE.ink,
+          backgroundColor: grayGradient(DATA_ETF_20Y.length),
           borderWidth: 0,
           maxBarThickness: 48,
         }
