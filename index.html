@@ -6,7 +6,10 @@
 <title>2026Q2 사내 재테크 가이드 (투자편)</title>
 <meta name="description" content="2026Q2 사내 재테크 가이드 (투자편): IRP·ISA·ETF 시뮬레이션·행동경제학·포트폴리오·체크리스트">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root {
@@ -105,19 +108,20 @@
     scroll-margin-top: 16px;
     padding-top: 4px;
   }
-  /* Signature: oversized outline section number */
+  /* Signature: oversized outline section number (JetBrains Mono for editorial data feel) */
   section.section::before {
     content: attr(data-num);
     display: block;
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 0.85;
-    letter-spacing: -0.06em;
+    font-family: 'JetBrains Mono', 'Pretendard', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
     color: transparent;
     -webkit-text-stroke: 1px var(--rule-mid);
     text-stroke: 1px var(--rule-mid);
-    margin-bottom: 6px;
-    font-feature-settings: "tnum", "ss01";
+    margin-bottom: 8px;
+    font-feature-settings: "tnum";
     user-select: none;
   }
   section.section h1 {
@@ -158,18 +162,69 @@
   section.section li > strong:first-child { color: var(--ink); }
   section.section strong { color: var(--ink); font-weight: 700; }
 
-  /* TL;DR — lead paragraph (subtle hairline above, slightly larger type) */
-  section.section h2:first-of-type + p {
-    border-top: 1px solid var(--rule);
-    padding: 18px 0 0;
-    background: transparent;
-    border-radius: 0;
+  /* TL;DR — inverted ink block (only when first h2 is followed by a p) */
+  section.section h2:first-of-type:has(+ p) {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
     border-left: none;
-    margin-top: 8px;
+    padding: 0;
+    line-height: 1;
+    font-family: 'JetBrains Mono', 'Pretendard', sans-serif;
+  }
+  section.section h2:first-of-type:has(+ p) + p {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 22px 24px;
+    margin: 0 0 32px;
     font-size: 1.05rem;
     line-height: 1.7;
-    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    border: none;
+    border-radius: 0;
   }
+  section.section h2:first-of-type:has(+ p) + p strong {
+    color: var(--paper);
+    font-weight: 800;
+  }
+  section.section h2:first-of-type:has(+ p) + p sup.fn-ref a {
+    color: var(--paper);
+    text-decoration: underline;
+    text-decoration-color: rgba(250, 248, 243, 0.45);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  /* Action box — section-end CTA */
+  .action-box {
+    margin: 36px 0 0;
+    padding: 20px 24px;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    position: relative;
+  }
+  .action-box .action-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', 'Pretendard', sans-serif;
+  }
+  .action-box p {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .action-box strong { color: var(--ink); }
 
   /* Code & inline */
   code {
@@ -336,7 +391,7 @@
     .wrap { padding: 32px 24px 96px; }
     .hero h1 { font-size: 2.1rem; }
     .hero .hook { font-size: 1.15rem; }
-    section.section::before { font-size: 6rem; }
+    section.section::before { font-size: 5.5rem; }
     section.section h1 { font-size: 1.7rem; }
     section.section h2 { font-size: 1.32rem; }
     section.section h3 { font-size: 1.12rem; }
@@ -410,6 +465,10 @@
 </blockquote>
 <h2>본편으로</h2>
 <p>비상금·부채·보장의 빈틈이 메워지면, 다음 장부터 다룰 IRP·연금저축펀드·직투·ETF 적립은 <strong>중단되지 않는 시스템</strong>으로 굴러간다. 본 자료의 모든 시뮬레이션은 그 전제 위에서만 의미를 갖는다.</p>
+<div class="action-box">
+<div class="action-eyebrow">→ 이 장의 액션</div>
+<p>위 7개 체크리스트를 본인 상황으로 점검 후, ✅ 5개 이상이면 1장으로 진행. 5개 미만이면 부족 항목부터 보강 (특히 카드론·리볼빙 잔액 0원과 비상금 6개월치는 우선순위).</p>
+</div>
 </section>
 
 <section class="section" id="s1" data-num="01" aria-labelledby="s1-title">
@@ -1410,6 +1469,37 @@ Chart.defaults.font.family = "'Pretendard','Noto Sans KR',system-ui,sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = CHART_PALETTE.ink;
 
+const NUMERIC_TICK_FONT = { family: "'JetBrains Mono', monospace", size: 11, weight: '500' };
+
+/* 데이터 라벨 플러그인 — 막대 위에 값 표기 (편집 의도 강화용) */
+const dataLabelPlugin = {
+  id: 'dataLabel',
+  afterDatasetsDraw(chart, args, opts) {
+    if (!opts || !opts.enabled) return;
+    const formatter = opts.formatter || ((v) => v.toLocaleString());
+    const color = opts.color || CHART_PALETTE.ink;
+    const offset = opts.offset || 8;
+    const { ctx } = chart;
+    const meta = chart.getDatasetMeta(0);
+    if (!meta || !meta.data) return;
+    const data = chart.data.datasets[0].data;
+
+    ctx.save();
+    ctx.font = '700 11px "JetBrains Mono", monospace';
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    meta.data.forEach((bar, i) => {
+      const value = data[i];
+      const text = formatter(value, i);
+      if (text == null || text === '') return;
+      ctx.fillText(text, bar.x, bar.y - offset);
+    });
+    ctx.restore();
+  }
+};
+Chart.register(dataLabelPlugin);
+
 const COMMON_TOOLTIP = {
   backgroundColor: CHART_PALETTE.ink,
   titleColor: CHART_PALETTE.paper,
@@ -1477,14 +1567,20 @@ function renderIrpRefundChart() {
               return `환급 ${d.refund_krw.toLocaleString()}원 (공제율 ${(d.rate*100).toFixed(1)}%)`;
             }
           }
+        },
+        dataLabel: {
+          enabled: true,
+          color: CHART_PALETTE.ink,
+          formatter: (v) => `${(v / 10000).toFixed(0)}만`
         }
       },
+      layout: { padding: { top: 24 } },
       scales: {
         y: {
           beginAtZero: true,
           border: { display: false },
           grid: { color: CHART_PALETTE.rule, drawTicks: false },
-          ticks: { callback: krwAxis, padding: 8 },
+          ticks: { callback: krwAxis, padding: 8, font: NUMERIC_TICK_FONT },
           title: { display: true, text: '환급액(원)', font: AXIS_TITLE_FONT, color: CHART_PALETTE.muted }
         },
         x: {
@@ -1533,15 +1629,25 @@ function renderEtf20YChart() {
               return `기간: ${yrs}Y (${d.months}개월) · 원금: ${principalEok}억`;
             }
           }
+        },
+        dataLabel: {
+          enabled: true,
+          color: CHART_PALETTE.ink,
+          formatter: (v, i) => {
+            const d = DATA_ETF_20Y[i];
+            const mult = (v / d.principal_krw).toFixed(1);
+            return `${mult}×`;
+          }
         }
       },
+      layout: { padding: { top: 24 } },
       scales: {
         y: {
           beginAtZero: true,
           type: 'logarithmic',
           border: { display: false },
           grid: { color: CHART_PALETTE.rule, drawTicks: false },
-          ticks: { callback: krwAxis, padding: 8 },
+          ticks: { callback: krwAxis, padding: 8, font: NUMERIC_TICK_FONT },
           title: { display: true, text: '20년 후 평가금액 (로그축)', font: AXIS_TITLE_FONT, color: CHART_PALETTE.muted }
         },
         x: {
