@@ -23,11 +23,11 @@
 <style>
   :root {
     --ink:         #1A1A1A;
-    --ink-soft:    rgba(26, 26, 26, 0.72);
+    --ink-soft:    rgba(26, 26, 26, 0.80);
     --paper:       #FAF8F3;
     --paper-soft:  #F2EEE5;
     --accent:      #8B2635;
-    --muted:       #5F5D5B;
+    --muted:       #4F4D4A;
     --rule:        rgba(26, 26, 26, 0.12);
     --rule-mid:    rgba(26, 26, 26, 0.4);
     --rule-strong: rgba(26, 26, 26, 0.85);
@@ -451,6 +451,51 @@
     transition: width 0.05s linear;
     pointer-events: none;
   }
+  /* Current section indicator — appears once user scrolls past hero */
+  #reading-section {
+    position: fixed;
+    top: 10px;
+    right: 16px;
+    z-index: 999;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: rgba(250, 248, 243, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 4px 10px;
+    letter-spacing: 0.01em;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    max-width: min(60vw, 360px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid var(--rule);
+  }
+  #reading-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #reading-section .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  /* Responsive — mobile compaction (default = mobile) */
+  @media (max-width: 767px) {
+    section.section { margin-bottom: 48px; }
+    section.section h2:first-of-type:has(+ p) + p {
+      padding: 18px 18px;
+    }
+    .action-box { padding: 16px 18px; }
+    blockquote { padding: 4px 0 4px 16px; }
+    #reading-section { font-size: 0.68rem; padding: 3px 8px; max-width: 70vw; }
+  }
 
   /* Responsive */
   @media (min-width: 768px) {
@@ -474,6 +519,7 @@
   /* Print — 출력 시 잉크 절감, 시그니처 흐리기, 페이지 break 보호 */
   @media print {
     #reading-progress { display: none !important; }
+    #reading-section { display: none !important; }
     body {
       background: #fff;
       color: #000;
@@ -518,6 +564,7 @@
 </head>
 <body>
 <div id="reading-progress" aria-hidden="true"></div>
+<div id="reading-section" aria-hidden="true"></div>
 <div class="wrap">
 
 <header class="hero">
@@ -2020,6 +2067,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* 읽기 진행 바 — 스크롤 비율을 상단 막대 너비로 표시 */
   const progressEl = document.getElementById('reading-progress');
+  const sectionLabel = document.getElementById('reading-section');
+  const sections = document.querySelectorAll('section.section');
+
   if (progressEl) {
     const updateProgress = () => {
       const scrollTop = window.scrollY || window.pageYOffset;
@@ -2030,6 +2080,40 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
     window.addEventListener('scroll', updateProgress, { passive: true });
     window.addEventListener('resize', updateProgress);
+  }
+
+  /* 현재 섹션 인디케이터 — 스크롤 위치 + IntersectionObserver */
+  if (sectionLabel && sections.length > 0) {
+    const titles = new Map();
+    sections.forEach(sec => {
+      const num = sec.dataset.num || '';
+      const titleEl = sec.querySelector('h1');
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      titles.set(sec, { num, title });
+    });
+
+    let activeSection = null;
+    const renderLabel = (sec) => {
+      if (!sec || sec === activeSection) return;
+      activeSection = sec;
+      const { num, title } = titles.get(sec) || {};
+      sectionLabel.innerHTML = `<span class="num">${num}</span>${title}`;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length > 0) renderLabel(visible[0].target);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+
+    const toggleVisibility = () => {
+      const show = window.scrollY > 240;
+      sectionLabel.classList.toggle('visible', show);
+    };
+    toggleVisibility();
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
   }
 });
 </script>
