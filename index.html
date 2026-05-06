@@ -518,7 +518,7 @@
       <li><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
       <li><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
       <li><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
-      <li><a href="#s5">포트폴리오 제안 — 강심장형 / 약심장형</a></li>
+      <li><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
       <li><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
     </ol>
   </nav>
@@ -1512,7 +1512,7 @@
 
 <section class="section" id="s5" data-num="05" aria-labelledby="s5-title">
   <h1 id="s5-title">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</h1>
-  <div class="chart-card"><h3>모델 포트폴리오 자산군 비중 (카테고리 예시 / 직투 계좌 기준)</h3><p class="caption">강심장형 vs 약심장형. 특정 종목 권유 아님. 출처<sup class="fn-ref"><a href="#fn5">[5]</a></sup></p><div class="chart-row two"><div class="chart-box"><canvas id="chart-portfolio-strong" aria-label="강심장형 포트폴리오 도넛차트" role="img"></canvas></div><div class="chart-box"><canvas id="chart-portfolio-soft" aria-label="약심장형 포트폴리오 도넛차트" role="img"></canvas></div></div></div>
+  <div class="chart-card"><h3>모델 포트폴리오 자산군 비중 (카테고리 예시 / 직투 계좌 기준)</h3><p class="caption">고변동성 감수형 vs 저변동성 선호형. 특정 종목 권유 아님. 출처<sup class="fn-ref"><a href="#fn5">[5]</a></sup></p><div class="chart-row two"><div class="chart-box"><canvas id="chart-portfolio-strong" aria-label="고변동성 감수형 포트폴리오 도넛차트" role="img"></canvas></div><div class="chart-box"><canvas id="chart-portfolio-soft" aria-label="저변동성 선호형 포트폴리오 도넛차트" role="img"></canvas></div></div></div>
   <h2>TL;DR</h2>
 <p>위험성향이 다르면 답도 다르다. 두 가지 모델 포트폴리오를 제시하되, 운영 규칙은 동일하다 — 자동이체·환전·정기분할매수 → 분기 점검 → 연 1회 리밸런싱. 아래는 모두 <strong>카테고리 예시</strong>이며 특정 종목 권유가 아니다.</p>
 <p>두 모델 모두 미국 자산이 핵심 비중을 차지하는데, 이는 단순 수익률 추구가 아니라 앞서 다룬 통화 분산·헷지 논리에 기반한다. 원화 자산만 보유하면 인플레이션과 환율 하락의 이중 압박을 받지만, 미국 자산을 일정 비중 편입하면 원화 가치 변동을 자연스럽게 상쇄한다.</p>
@@ -1722,11 +1722,11 @@ const CHART_PALETTE = {
 
 /* 자산군별 고정 색 매핑 — 잉크 / 버건디 / 뮤트 그레이 */
 const PORTFOLIO_COLOR = {
-  /* 강심장형 (직투) */
+  /* 고변동성 감수형 (직투) */
   '미국 나스닥100 ETF':    '#1A1A1A',  /* ink     — 주력 주식 */
   '미국 나스닥100 ETF x2': '#8B2635',  /* accent  — 레버리지 */
   '빅테크 개별주':         '#767472',  /* muted   — 집중 자산 */
-  /* 약심장형 (직투) */
+  /* 저변동성 선호형 (직투) */
   '미국 S&P500 ETF':       '#1A1A1A',  /* ink     — 주력 주식 */
   '미국 배당다우존스 ETF': '#8B2635',  /* accent  — 인컴 */
   '미국 장기채 ETF':       '#767472',  /* muted   — 방어 */
@@ -1738,7 +1738,7 @@ const DATA_IRP_REFUND = [{"salary_label": "3,000만", "rate": 0.165, "refund_krw
 /* ETF 20Y 평가금액 차트 — 6종, 과거 실현치 단일 시리즈 */
 const DATA_ETF_20Y = [{"ticker": "SPY", "total_krw": 1424954063.0, "months": 240, "principal_krw": 390000000, "note": ""}, {"ticker": "QQQ", "total_krw": 2599830421.0, "months": 240, "principal_krw": 390000000, "note": ""}, {"ticker": "SSO", "total_krw": 2300711643.0, "months": 240, "principal_krw": 390000000, "note": ""}, {"ticker": "QLD", "total_krw": 7604521711.0, "months": 240, "principal_krw": 390000000, "note": ""}, {"ticker": "UPRO", "total_krw": 8999011612.0, "months": 202, "principal_krw": 333000000, "note": "상장 후 16.83년 (202개월) — true 20Y 아님, 적용 horizon도 16.83Y로 일치"}, {"ticker": "TQQQ", "total_krw": 17714687389.0, "months": 194, "principal_krw": 321000000, "note": "상장 후 16.17년 (194개월) — true 20Y 아님, 적용 horizon도 16.17Y로 일치"}];
 
-/* 포트폴리오 차트 — 강심장형 / 약심장형 */
+/* 포트폴리오 차트 — 고변동성 감수형 / 저변동성 선호형 */
 const DATA_PORTFOLIO = {"strong": [{"label": "미국 나스닥100 ETF", "weight": 70}, {"label": "미국 나스닥100 ETF x2", "weight": 20}, {"label": "빅테크 개별주", "weight": 10}], "soft": [{"label": "미국 S&P500 ETF", "weight": 50}, {"label": "미국 배당다우존스 ETF", "weight": 30}, {"label": "미국 장기채 ETF", "weight": 20}]};
 
 /* (참고용 시계열·비교) */
@@ -2001,8 +2001,8 @@ function renderPortfolioPie(canvasId, data, title) {
 document.addEventListener('DOMContentLoaded', () => {
   renderIrpRefundChart();
   renderEtf20YChart();
-  renderPortfolioPie('chart-portfolio-strong', DATA_PORTFOLIO.strong, '강심장형 (예시)');
-  renderPortfolioPie('chart-portfolio-soft',   DATA_PORTFOLIO.soft,   '약심장형 (예시)');
+  renderPortfolioPie('chart-portfolio-strong', DATA_PORTFOLIO.strong, '고변동성 감수형 (예시)');
+  renderPortfolioPie('chart-portfolio-soft',   DATA_PORTFOLIO.soft,   '저변동성 선호형 (예시)');
 });
 </script>
 </body>
