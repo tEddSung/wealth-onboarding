@@ -493,7 +493,19 @@
       padding: 18px 18px;
     }
     .action-box { padding: 16px 18px; }
-    blockquote { padding: 4px 0 4px 16px; }
+    /* A. 리스트 콤팩션 — 체크리스트·일반 ul/ol 간격 축소 */
+    section.section ul, section.section ol { padding-left: 20px; }
+    section.section li { margin: 4px 0; }
+    /* B. TOC 콤팩션 — 항목 간격·폰트·카운터 너비 축소 */
+    .toc { padding: 14px 0; }
+    .toc li { margin: 3px 0; font-size: 0.9rem; gap: 10px; }
+    .toc li::before { min-width: 18px; font-size: 0.74rem; }
+    /* C. blockquote 호흡 — 마진/좌패딩/폰트 축소 */
+    blockquote { margin: 14px 0; padding: 4px 0 4px 14px; font-size: 0.92rem; }
+    /* D. 표 콤팩션 — 셀 패딩·폰트 축소 */
+    table { font-size: 0.88rem; }
+    th, td { padding: 8px 10px; }
+    th { font-size: 0.82rem; }
     #reading-section { font-size: 0.68rem; padding: 3px 8px; max-width: 70vw; }
   }
 
