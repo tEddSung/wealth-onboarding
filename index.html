@@ -439,18 +439,6 @@
   }
   footer a:hover { text-decoration-color: var(--ink); }
 
-  /* Reading progress bar */
-  #reading-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    width: 0%;
-    background: var(--ink);
-    z-index: 1000;
-    transition: width 0.05s linear;
-    pointer-events: none;
-  }
   /* Current section indicator — appears once user scrolls past hero */
   #reading-section {
     position: fixed;
@@ -484,6 +472,73 @@
     color: var(--muted);
     font-weight: 700;
     margin-right: 6px;
+  }
+
+  /* Side TOC — desktop ≥1440px, full table of contents with active highlight */
+  #side-toc {
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    width: 310px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    z-index: 99;
+    padding: 14px 0 14px 16px;
+    border-left: 1px solid var(--rule);
+    background: rgba(250, 248, 243, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  #side-toc h2 {
+    font-size: 0.66rem;
+    color: var(--muted);
+    margin: 0 0 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  #side-toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: side-toc -1;
+  }
+  #side-toc li {
+    counter-increment: side-toc;
+    margin: 8px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-left: 8px;
+    border-left: 2px solid transparent;
+    transition: border-color 0.18s ease, color 0.18s ease;
+  }
+  #side-toc li::before {
+    content: counter(side-toc, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    flex-shrink: 0;
+    min-width: 18px;
+  }
+  #side-toc a {
+    color: var(--muted);
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.18s ease;
+  }
+  #side-toc li.active { border-left-color: var(--ink); }
+  #side-toc li.active a { color: var(--ink); font-weight: 600; }
+  #side-toc a:hover, #side-toc a:focus { color: var(--ink); }
+  @media (min-width: 1440px) {
+    #side-toc { display: block; }
+    #reading-section { display: none !important; }
   }
 
   /* Glossary tooltip — first occurrence of each term per section */
@@ -591,8 +646,8 @@
 
   /* Print — 출력 시 잉크 절감, 시그니처 흐리기, 페이지 break 보호 */
   @media print {
-    #reading-progress { display: none !important; }
     #reading-section { display: none !important; }
+    #side-toc { display: none !important; }
     body {
       background: #fff;
       color: #000;
@@ -636,8 +691,19 @@
 </style>
 </head>
 <body>
-<div id="reading-progress" aria-hidden="true"></div>
 <div id="reading-section" aria-hidden="true"></div>
+<nav id="side-toc" aria-label="섹션 위치">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#s0">적립식 투자를 지키는 3가지 — 시작 전 점검</a></li>
+    <li><a href="#s1">왜 지금 재테크인가</a></li>
+    <li><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
+    <li><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
+    <li><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
+    <li><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
+    <li><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
+  </ol>
+</nav>
 <div class="wrap">
 
 <header class="hero">
@@ -2135,25 +2201,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPortfolioPie('chart-portfolio-strong', DATA_PORTFOLIO.strong, '고변동성 감수형 (예시)');
   renderPortfolioPie('chart-portfolio-soft',   DATA_PORTFOLIO.soft,   '저변동성 선호형 (예시)');
 
-  /* 읽기 진행 바 — 스크롤 비율을 상단 막대 너비로 표시 */
-  const progressEl = document.getElementById('reading-progress');
+  /* 현재 섹션 인디케이터 + 사이드 TOC active 동기화 */
   const sectionLabel = document.getElementById('reading-section');
+  const sideTocItems = document.querySelectorAll('#side-toc li');
   const sections = document.querySelectorAll('section.section');
 
-  if (progressEl) {
-    const updateProgress = () => {
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-      progressEl.style.width = pct.toFixed(2) + '%';
-    };
-    updateProgress();
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', updateProgress);
-  }
-
-  /* 현재 섹션 인디케이터 — 스크롤 위치 + IntersectionObserver */
-  if (sectionLabel && sections.length > 0) {
+  if (sections.length > 0) {
     const titles = new Map();
     sections.forEach(sec => {
       const num = sec.dataset.num || '';
@@ -2163,27 +2216,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let activeSection = null;
-    const renderLabel = (sec) => {
+    const renderActive = (sec) => {
       if (!sec || sec === activeSection) return;
       activeSection = sec;
       const { num, title } = titles.get(sec) || {};
-      sectionLabel.innerHTML = `<span class="num">${num}</span>${title}`;
+      if (sectionLabel) {
+        sectionLabel.innerHTML = `<span class="num">${num}</span>${title}`;
+      }
+      if (sideTocItems.length > 0) {
+        const targetHref = '#' + sec.id;
+        sideTocItems.forEach(li => {
+          const a = li.querySelector('a');
+          li.classList.toggle('active', !!a && a.getAttribute('href') === targetHref);
+        });
+      }
     };
 
     const observer = new IntersectionObserver((entries) => {
       const visible = entries
         .filter(e => e.isIntersecting)
         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      if (visible.length > 0) renderLabel(visible[0].target);
+      if (visible.length > 0) renderActive(visible[0].target);
     }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
     sections.forEach(s => observer.observe(s));
 
-    const toggleVisibility = () => {
-      const show = window.scrollY > 240;
-      sectionLabel.classList.toggle('visible', show);
-    };
-    toggleVisibility();
-    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    if (sectionLabel) {
+      const toggleVisibility = () => {
+        const show = window.scrollY > 240;
+        sectionLabel.classList.toggle('visible', show);
+      };
+      toggleVisibility();
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+    }
   }
 });
 
