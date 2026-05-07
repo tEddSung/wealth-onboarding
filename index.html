@@ -391,19 +391,22 @@
     gap: 16px;
   }
 
-  /* Footnote refs — accent stays here as signature */
+  /* Footnote refs — visually subdued; accent only on hover */
   sup.fn-ref {
-    font-size: 0.7em;
+    font-size: 0.65em;
     line-height: 1;
     vertical-align: super;
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
   }
+  sup.fn-ref:hover { opacity: 1; }
   sup.fn-ref a {
-    color: var(--accent);
+    color: var(--ink-soft);
     text-decoration: none;
     padding: 0 2px;
-    font-weight: 600;
+    font-weight: 500;
   }
-  sup.fn-ref a:hover { text-decoration: underline; }
+  sup.fn-ref a:hover { color: var(--accent); text-decoration: underline; }
 
   /* Footer — unified hairline treatment */
   footer.site-footer {
@@ -791,7 +794,7 @@
 <ul>
 <li>예적금만으로는 노후 준비가 부족할 수 있다.</li>
 <li>장기 분산 자동투자는 투기와 다르다.</li>
-<li>월 10만 원부터 자동이체부터 시작하면 된다.</li>
+<li>월 10만 원 자동이체부터 시작하면 된다.</li>
 </ul>
 <hr />
 <h2>→ 첫 행동 1개</h2>
@@ -804,7 +807,7 @@
 <blockquote>
 <p>💡 <strong>본문이 어렵게 느껴진다면 여기까지로도 충분합니다.</strong> 증권사 앱에서 연금저축펀드 계좌 개설 + 월 10만 자동이체 — 이게 시작입니다. 본문은 더 깊이 알고 싶을 때 돌아오세요.</p>
 </blockquote>
-<p>본문은 위 6가지의 근거·세부·시뮬레이션이다. 시간 여력에 따라 발췌해 읽어도 무방.</p>
+<p>본문은 위 6가지를 더 이해하고 싶은 사람을 위한 근거와 설명이다. 시간 여력에 따라 발췌해 읽어도 무방.</p>
 </section>
 
 <section class="section" id="s0" data-num="00" aria-labelledby="s0-title">
@@ -813,7 +816,7 @@
   <blockquote>
 <p>⚠️ 이 자료는 학습·정보공유 목적의 정리본이며 투자 권유가 아닙니다. 수치·제도 설명은 작성 시점 기준이며 변경될 수 있습니다. <span class="term" tabindex="0" data-tip="기초지수의 일일 수익률에 배수(2x·3x)로 연동되는 ETF. 장기 수익률은 단순 배수와 다르다.">레버리지 ETF</span> 사례는 구조 설명용 예시일 뿐 권장안이 아닙니다. <a href="#site-footer">전체 면책·기준일 보기</a></p>
 </blockquote>
-<p>본 자료의 시뮬레이션은 <strong>"매월 정해진 금액을 장기간 꾸준히 <span class="term" tabindex="0" data-tip="일정 금액을 정기적으로 매수하는 투자 방식. 시점 분산으로 평균매수가를 낮추는 효과를 노린다.">적립식</span>으로 투자"</strong>한다는 전제를 바탕으로 한다. 이 자료의 수치는 장기 적립을 계속한다는 전제에서 계산한 것이므로, 중간에 중단되면 결과가 달라질 수 있다. 본격적으로 들어가기 전, 적립식 투자를 중단하게 만드는 대표적인 3가지 요인을 먼저 점검하자.</p>
+<p>본 자료의 시뮬레이션은 <strong>"매월 정해진 금액을 장기간 꾸준히 <span class="term" tabindex="0" data-tip="일정 금액을 정기적으로 매수하는 투자 방식. 시점 분산으로 평균매수가를 낮추는 효과를 노린다.">적립식</span>으로 투자"</strong>한다는 전제를 바탕으로 한다. 이 자료의 수치는 장기 적립을 이어간다는 가정에서 계산한 값이다. 중간에 멈추면 결과는 달라질 수 있다. 본격적으로 들어가기 전, 적립식 투자를 중단하게 만드는 대표적인 3가지 요인을 먼저 점검하자.</p>
 <h2>적립식 투자를 멈추게 하는 3가지 사고</h2>
 <ol>
 <li>
@@ -926,7 +929,7 @@
 </tbody>
 </table></div>
 <p><sup class="fn-ref"><a href="#fn6">[6]</a></sup></p>
-<p>4년 누적 증가는 약 1.2%. 명목 월급은 올랐지만 구매력은 거의 그대로다. 여기에 더해 <strong>원달러 환율은 2021년 평균 1,144원에서 2026년 4월 약 1,476원으로 약 29% 상승했다(원화 가치 약 22% 하락)</strong>. 한국은행이 발표하는 <strong>실질실효환율(REER)</strong> — 달러뿐 아니라 64개 교역국 통화 대비 가치 — 도 2009년 이후 <strong>17년 만의 최저치</strong>라, 글로벌 기준으로도 원화 가치가 약해졌다는 신호다  <sup class="fn-ref"><a href="#fn8">[8]</a></sup>.</p>
+<p>4년 누적 증가는 약 1.2%. 명목 월급은 올랐지만 구매력은 거의 그대로다. 여기에 더해 <strong>원달러 환율은 2021년 평균 1,144원에서 2026년 4월 약 1,476원으로 약 29% 상승했다(원화 가치 약 22% 하락)</strong>. 달러뿐 아니라 여러 나라 통화를 기준으로 봐도, 원화의 실질 구매력은 약해진 상태다  <sup class="fn-ref"><a href="#fn8">[8]</a></sup>.</p>
 <p>원화 가치 하락 <span class="term" tabindex="0" data-tip="위험을 상쇄하는 반대 포지션을 잡는 전략. 환헷지·금리헷지 등.">헷지</span> 관점에서, 달러 자산을 자산 배분의 한 축으로 고려하는 편이 합리적이다. 단, 환율은 장기적으로도 예측이 어렵다. 원화 강세 구간에서는 달러 자산의 원화 환산 수익률이 깎일 수 있다. <span class="term" tabindex="0" data-tip="외화 자산을 환헤지 없이 보유해 환율 변동에 직접 노출되는 상태.">환노출</span>은 분산의 한 축이지 수익을 보장하는 수단이 아니다.</p>
 <h2>2. 복리는 시간이 만든다</h2>
 <blockquote>
