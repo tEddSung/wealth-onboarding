@@ -108,7 +108,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    counter-reset: toc-counter -1;
   }
   .toc li {
     margin: 6px 0;
@@ -116,10 +115,9 @@
     display: flex;
     align-items: baseline;
     gap: 12px;
-    counter-increment: toc-counter;
   }
   .toc li::before {
-    content: counter(toc-counter, decimal-leading-zero);
+    content: attr(data-num);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
     font-weight: 600;
@@ -504,10 +502,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    counter-reset: side-toc -1;
   }
   #side-toc li {
-    counter-increment: side-toc;
     margin: 8px 0;
     display: flex;
     align-items: baseline;
@@ -517,7 +513,7 @@
     transition: border-color 0.18s ease, color 0.18s ease;
   }
   #side-toc li::before {
-    content: counter(side-toc, decimal-leading-zero);
+    content: attr(data-num);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--muted);
@@ -695,16 +691,16 @@
 <nav id="side-toc" aria-label="섹션 위치">
   <h2>목차</h2>
   <ol>
-    <li><a href="#summary">3분 요약 — 본 자료 핵심 6가지</a></li>
-    <li><a href="#s0">적립식 투자를 지키는 3가지 — 시작 전 점검</a></li>
-    <li><a href="#s1">왜 지금 재테크인가</a></li>
-    <li><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
-    <li><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
-    <li><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
-    <li><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
-    <li><a href="#s5b">자주 묻는 질문 — 자료 전체에 대한 의문 정리</a></li>
-    <li><a href="#s5c">가상 사례 — 본 자료를 적용한 직장인 3명</a></li>
-    <li><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
+    <li data-num=""><a href="#summary">3분 요약 — 본 자료 핵심 6가지</a></li>
+    <li data-num="00"><a href="#s0">적립식 투자를 지키는 3가지 — 시작 전 점검</a></li>
+    <li data-num="01"><a href="#s1">왜 지금 재테크인가</a></li>
+    <li data-num="02"><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
+    <li data-num="03"><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
+    <li data-num="04"><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
+    <li data-num="05"><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
+    <li data-num="5B"><a href="#s5b">자주 묻는 질문 — 자료 전체에 대한 의문 정리</a></li>
+    <li data-num="5C"><a href="#s5c">가상 사례 — 본 자료를 적용한 직장인 3명</a></li>
+    <li data-num="06"><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
   </ol>
 </nav>
 <div class="wrap">
@@ -717,22 +713,22 @@
   <nav class="toc" aria-label="섹션 목차">
     <h2>목차</h2>
     <ol>
-      <li><a href="#summary">3분 요약 — 본 자료 핵심 6가지</a></li>
-      <li><a href="#s0">적립식 투자를 지키는 3가지 — 시작 전 점검</a></li>
-      <li><a href="#s1">왜 지금 재테크인가</a></li>
-      <li><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
-      <li><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
-      <li><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
-      <li><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
-      <li><a href="#s5b">자주 묻는 질문 — 자료 전체에 대한 의문 정리</a></li>
-      <li><a href="#s5c">가상 사례 — 본 자료를 적용한 직장인 3명</a></li>
-      <li><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
+      <li data-num=""><a href="#summary">3분 요약 — 본 자료 핵심 6가지</a></li>
+      <li data-num="00"><a href="#s0">적립식 투자를 지키는 3가지 — 시작 전 점검</a></li>
+      <li data-num="01"><a href="#s1">왜 지금 재테크인가</a></li>
+      <li data-num="02"><a href="#s2">세제 우대 계좌 — IRP·연금저축펀드 + ISA</a></li>
+      <li data-num="03"><a href="#s3">미국 ETF 장기 적립식 시뮬레이션</a></li>
+      <li data-num="04"><a href="#s4">행동경제학 — 알면서도 못 하는 이유</a></li>
+      <li data-num="05"><a href="#s5">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</a></li>
+      <li data-num="5B"><a href="#s5b">자주 묻는 질문 — 자료 전체에 대한 의문 정리</a></li>
+      <li data-num="5C"><a href="#s5c">가상 사례 — 본 자료를 적용한 직장인 3명</a></li>
+      <li data-num="06"><a href="#s6">결론 · 행동 체크리스트 · 면책</a></li>
     </ol>
   </nav>
 </header>
 
 <main>
-<section class="section" id="summary" data-num="00" aria-labelledby="summary-title">
+<section class="section" id="summary" data-num="" aria-labelledby="summary-title">
   <h1 id="summary-title">3분 요약 — 본 자료 핵심 6가지</h1>
   
   <p>본 자료가 닫혀 있는 6가지 의문에 직접 답하는 페이지. 시간이 부족하면 이것만 읽고 본문은 필요한 부분만 발췌.</p>
@@ -777,7 +773,7 @@
 <p>본문은 위 6가지의 근거·세부·시뮬레이션이다. 시간 여력에 따라 발췌해 읽어도 무방.</p>
 </section>
 
-<section class="section" id="s0" data-num="01" aria-labelledby="s0-title">
+<section class="section" id="s0" data-num="00" aria-labelledby="s0-title">
   <h1 id="s0-title">적립식 투자를 지키는 3가지 — 시작 전 점검</h1>
   
   <blockquote>
@@ -822,7 +818,7 @@
 </div>
 </section>
 
-<section class="section" id="s1" data-num="02" aria-labelledby="s1-title">
+<section class="section" id="s1" data-num="01" aria-labelledby="s1-title">
   <h1 id="s1-title">왜 지금 재테크인가</h1>
   
   <h2>들어가며 — 무섭게 느껴진다면</h2>
@@ -1013,7 +1009,7 @@
 </div>
 </section>
 
-<section class="section" id="s2" data-num="03" aria-labelledby="s2-title">
+<section class="section" id="s2" data-num="02" aria-labelledby="s2-title">
   <h1 id="s2-title">세제 우대 계좌 — IRP·연금저축펀드 + ISA</h1>
   <div class="chart-card"><h3>연봉 구간별 IRP+연금저축 환급액 (연 900만원 납입 가정)</h3><p class="caption">5,500만원 이하 = 16.5% 공제율 (148.5만원 환급) / 초과 = 13.2% (118.8만원 환급). 경계에서 환급액 약 30만원 차이. 출처<sup class="fn-ref"><a href="#fn1">[1]</a></sup></p><div class="chart-box"><canvas id="chart-irp-refund" aria-label="연봉별 IRP 환급액 막대차트" role="img"></canvas></div></div>
   <h2>이 장 핵심</h2>
@@ -1412,7 +1408,7 @@
 </div>
 </section>
 
-<section class="section" id="s3" data-num="04" aria-labelledby="s3-title">
+<section class="section" id="s3" data-num="03" aria-labelledby="s3-title">
   <h1 id="s3-title">미국 ETF 장기 적립식 시뮬레이션</h1>
   <div class="chart-card"><h3>20년 적립 시 평가금액 — 과거 실현치 (Realized)</h3><p class="caption">로그축. 운용사 공시 과거 CAGR을 그대로 적용한 결과. 4종(SPY·QQQ·SSO·QLD)은 20Y·원금 3.9억 기준. ※ UPRO는 상장 이후 전체 16.83Y(원금 3.33억), TQQQ는 16.17Y(원금 3.21억) — 데이터 측정 기간과 시뮬레이션 적용 기간을 일치시킴. 절대값 비교보다 배수(×) 또는 연환산 기준으로 해석할 것. 미래 추정 시 변동성 4요인(시작점 편향·금리·변동성·경로 의존성) 감안 필요. 출처<sup class="fn-ref"><a href="#fn3">[3]</a></sup></p><div class="chart-box"><canvas id="chart-etf-20y" aria-label="ETF 20년 적립 결과 막대차트" role="img"></canvas></div></div>
   <h2>들어가며 — ETF가 도박과 다른 이유</h2>
@@ -1686,7 +1682,7 @@
 </div>
 </section>
 
-<section class="section" id="s4" data-num="05" aria-labelledby="s4-title">
+<section class="section" id="s4" data-num="04" aria-labelledby="s4-title">
   <h1 id="s4-title">행동경제학 — 알면서도 못 하는 이유</h1>
   
   <h2>이 장 핵심</h2>
@@ -1889,7 +1885,7 @@
 </div>
 </section>
 
-<section class="section" id="s5" data-num="06" aria-labelledby="s5-title">
+<section class="section" id="s5" data-num="05" aria-labelledby="s5-title">
   <h1 id="s5-title">포트폴리오 제안 — 고변동성 감수형 / 저변동성 선호형</h1>
   <div class="chart-card"><h3>모델 포트폴리오 자산군 비중 (카테고리 예시 / 직투 계좌 기준)</h3><p class="caption">고변동성 감수형 vs 저변동성 선호형. 특정 종목 권유 아님. 출처<sup class="fn-ref"><a href="#fn5">[5]</a></sup></p><div class="chart-row two"><div class="chart-box"><canvas id="chart-portfolio-strong" aria-label="고변동성 감수형 포트폴리오 도넛차트" role="img"></canvas></div><div class="chart-box"><canvas id="chart-portfolio-soft" aria-label="저변동성 선호형 포트폴리오 도넛차트" role="img"></canvas></div></div></div>
   <h2>이 장 핵심</h2>
@@ -2012,7 +2008,7 @@
 </div>
 </section>
 
-<section class="section" id="s5b" data-num="07" aria-labelledby="s5b-title">
+<section class="section" id="s5b" data-num="5B" aria-labelledby="s5b-title">
   <h1 id="s5b-title">자주 묻는 질문 — 자료 전체에 대한 의문 정리</h1>
   
   <p>본 자료를 읽으면서 흔히 나오는 질문 5개를 정리한다. 각 답변은 <strong>결론 한 줄 + 근거 한 단락</strong> 구조이며, 자료 다른 장과 교차 참조된다.</p>
@@ -2037,7 +2033,7 @@
 </blockquote>
 </section>
 
-<section class="section" id="s5c" data-num="08" aria-labelledby="s5c-title">
+<section class="section" id="s5c" data-num="5C" aria-labelledby="s5c-title">
   <h1 id="s5c-title">가상 사례 — 본 자료를 적용한 직장인 3명</h1>
   
   <p>본 자료를 적용한 <strong>가상 사례 3개</strong>. 인물·이름은 익명·가공이며, 평가액은 §1·§3과 동일한 보수 기준(SPY 20Y 평균 <span class="term" tabindex="0" data-tip="연평균 복리수익률. 누적 수익률을 1년 단위로 환산한 지표.">CAGR</span> 10.84%)으로 산출했다  <sup class="fn-ref"><a href="#fn3">[3]</a></sup>. 실제 결과는 환율·운용 <span class="term" tabindex="0" data-tip="상장지수펀드. 지수를 추종하며 주식처럼 거래되는 펀드.">ETF</span>·인생 이벤트에 따라 달라진다.</p>
@@ -2120,7 +2116,7 @@
 <p>→ 위 사례는 모두 보수 기준이며 실제는 환율·운용·인생 이벤트에 따라 달라진다. 핵심 메시지는 두 가지뿐 — <strong>액수보다 시작 시점</strong>, 그리고 <strong>시작했으면 자동이체를 끊지 않는 것</strong>.</p>
 </section>
 
-<section class="section" id="s6" data-num="09" aria-labelledby="s6-title">
+<section class="section" id="s6" data-num="06" aria-labelledby="s6-title">
   <h1 id="s6-title">결론 · 행동 체크리스트 · 면책</h1>
   
   <h2>한 줄 결론</h2>
