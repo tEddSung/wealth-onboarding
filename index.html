@@ -200,6 +200,7 @@
     scroll-margin-top: 16px;
     padding-top: 4px;
   }
+  main > section.section:last-child { margin-bottom: 0; }
   /* Signature: oversized outline section number (JetBrains Mono for editorial data feel) */
   section.section::before {
     content: attr(data-num);
@@ -626,7 +627,7 @@
 
   /* Footer — unified hairline treatment */
   footer.site-footer {
-    margin-top: 72px;
+    margin-top: 18px;
     padding-top: 28px;
     border-top: 1px solid var(--rule-strong);
     font-size: 0.85rem;
