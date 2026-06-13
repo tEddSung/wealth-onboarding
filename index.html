@@ -804,7 +804,8 @@
     position: absolute;
     left: 50%;
     bottom: calc(100% + 8px);
-    transform: translateX(-50%);
+    /* --tip-shift: 화면 좌우 끝단 용어의 툴팁이 뷰포트를 벗어나지 않도록 JS가 안쪽으로 미는 보정값 */
+    transform: translateX(calc(-50% + var(--tip-shift, 0px)));
     background: #1a1a1a;
     color: #fff;
     font-size: 13px;
@@ -4353,6 +4354,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+/* Glossary tooltip — keep within viewport horizontally (clamp left/right edge terms) */
+function positionTip(term) {
+  const tipW = parseFloat(getComputedStyle(term, '::after').width) || 0;
+  if (!tipW) return;
+  const r = term.getBoundingClientRect();
+  const center = r.left + r.width / 2;
+  const vw = document.documentElement.clientWidth;
+  const margin = 12;
+  let shift = 0;
+  if (center - tipW / 2 < margin) shift = margin - (center - tipW / 2);
+  else if (center + tipW / 2 > vw - margin) shift = (vw - margin) - (center + tipW / 2);
+  term.style.setProperty('--tip-shift', Math.round(shift) + 'px');
+}
+document.addEventListener('mouseover', (e) => {
+  const term = e.target.closest('.term');
+  if (term) positionTip(term);
+});
+document.addEventListener('focusin', (e) => {
+  const term = e.target.closest('.term');
+  if (term) positionTip(term);
+});
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.term.term-active').forEach(positionTip);
+}, { passive: true });
+
 /* Glossary tooltip — toggle on tap (mobile) and dismiss on outside click */
 document.addEventListener('click', (e) => {
   const term = e.target.closest('.term');
@@ -4361,7 +4387,7 @@ document.addEventListener('click', (e) => {
   });
   if (term) {
     e.preventDefault();
-    term.classList.toggle('term-active');
+    if (term.classList.toggle('term-active')) positionTip(term);
   }
 });
 document.addEventListener('keydown', (e) => {
