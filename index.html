@@ -3946,6 +3946,22 @@ const PRINT_INTENT = (() => { try { return new URLSearchParams(location.search).
 if (PRINT_INTENT || (window.matchMedia && window.matchMedia('print').matches)) {
   Chart.defaults.animation = false;
 }
+// 인쇄/PDF 전용: 차트 캔버스를 흰색으로 채워 불투명화. 투명 캔버스는 gs 재증류 시 SMask(투명 마스크)로
+// 변환되는데, 일부 프린터 RIP가 이 투명도를 만나면 같은 페이지의 벡터 텍스트를 통째로 드롭함(차트만 인쇄됨).
+// ?print=1일 때만 적용 → 웹 화면은 투명 배경(크림색 비침) 그대로 유지.
+if (PRINT_INTENT) {
+  Chart.register({
+    id: 'printOpaqueBg',
+    beforeDraw(chart) {
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    }
+  });
+}
 // 인쇄 전환 시: 애니메이션 끄고 + 모든 차트를 현재(인쇄 레이아웃) 컨테이너 크기로 재측정.
 // 인쇄 CSS가 적용된 좁은 정사각형 컨테이너에 맞춰 캔버스 버퍼를 다시 잡아야 도넛이 원형 유지(타원 방지).
 const onPrint = () => {
